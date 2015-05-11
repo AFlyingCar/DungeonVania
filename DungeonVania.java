@@ -1,4 +1,11 @@
+
+*Jacob Meserve
+*Main
+*5/11/15
+*The Main file
+
 import java.util.Scanner;
+
 class DungeonVania{
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
@@ -11,13 +18,20 @@ class DungeonVania{
 		System.out.println("1. Go to the nearby dungeon");
 		System.out.println("2. Go to the store");
 		System.out.println("3. Check Inventory");
-
-
-		
+		System.out.println("Choice: ");
+		int intPut = input.nextInt();
+		getMenu(intPut);
 	}
-
-	public static void getMenu(){
-
-
+	
+	public static void getMenu(int choice){
+		if(choice == 1){
+			System.out.println(player.getName() + ": walks to the nearby dungeon");
+		}else if(choice == 2)
+			System.out.println(player.getName + ": walks to the nearby store")
+		else if(choice == 3){
+			ArrayList<Item> playerInv = player.getInventory();
+			for(int i = 0; i < playerInv.size(); i++)
+				System.out.println((i + 1) + ": " + playerInv.get(i));
+		}
 	}
 }
