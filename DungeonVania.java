@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 
 class DungeonVania{
+	private static Player player;
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
 		System.out.println("Name: ");
 		String name = input.nextLine();
-		Player player = new Player(name);
+		player = new Player(name);
 		System.out.println(player.getName() + ": starts in the town");
 		System.out.println(player.getName() + ": checks their pockets and finds " + player.getMoney());
 		System.out.println("0. Go to Bed");
