@@ -7,6 +7,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
 class DungeonVania{
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
@@ -24,7 +25,7 @@ class DungeonVania{
 		getMenu(intPut);
 		while(intPut != 0){
 			getMenuText();
-			input = intput.nextInt();
+			intPut = input.nextInt();
 			getMenu(intPut);
 		}
 	}
@@ -41,7 +42,7 @@ class DungeonVania{
 		if(choice == 1){
 			System.out.println(player.getName() + ": walks to the nearby dungeon");
 		}else if(choice == 2)
-			System.out.println(player.getName + ": walks to the nearby store");
+			System.out.println(player.getName() + ": walks to the nearby store");
 		else if(choice == 3){
 			ArrayList<Item> playerInv = player.getInventory();
 			for(int i = 0; i < playerInv.size(); i++)
