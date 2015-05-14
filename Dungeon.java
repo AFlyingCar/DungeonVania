@@ -61,8 +61,9 @@ public class Dungeon{
 	PostCondition: c_rooom = c_room + 1
 	*/
 	public boolean moveToNextRoom(){
-		if(doesHaveNextRoom() && doesHaveNextRoom()){
+		if(doesHaveNextRoom() && canMoveToNextRoom()){
 			c_room++;
+			Enemy.enemyInRoom = 0;
 			return true;
 		}else
 			return false;
@@ -74,6 +75,13 @@ public class Dungeon{
 	*/
 	public boolean doesHaveNextRoom(){
 		return !getCurrentRoom().isBossRoom();
+	}
+
+	/*
+	Returns true if and only if 
+	*/
+	public boolean canMoveToNextRoom(){
+		return getCurrentRoom().canMoveToNextRoom();
 	}
 
 	/*
