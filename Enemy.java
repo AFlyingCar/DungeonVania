@@ -6,23 +6,65 @@
 */
 
 public class Enemy{
-	private static int count = 0;
+	protected static int count = 0;
 	public static int enemyInRoom;
 	private int health;
 	private int money;
-	private String name;
+	protected String name;
+	protected int damage;
+	protected int defense;
 	public Enemy(){
 		count ++;
+		generateDefense();
 		generateHealth();
-		generateMoney;
+		generateMoney();
+		generateDamage();
 	}
 
-	public void generateHealth(){
-		health = (int)(Math.random() * (10 * count * (enemyInRoom/10)))
+	private void generateHealth(){
+		health = (int)(Math.random() * (10 * count * (enemyInRoom/10.0)))
 	}
 
-	public void generateMoney(){
-		money = (int)(Math.random() * (2 * count * (enemyInRoom/10)))
+	private void generateMoney(){
+		money = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)))
+	}
+
+	private void generateDamage(){
+		damage = (int)(Math.random() * (count * (enemiesInRoom/10.0)))
+	}
+
+	private void generateDefense(){
+		defense = (int)(Math.random() * (2 * count * (enemiesInRoom/10.0)))
+	}
+
+	public void addHealth(int newHealth){
+		health += newHealth;
+	}
+
+	public void setHealth(int newHealth){
+		health = newHealth;
+	}
+
+	public int getHealth(){
+		return health;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public int getDefense(){
+		return defense; 
+	}
+
+	public int getMoney(){
+		return money;
+	}
+
+	public int damagePlayer(Player player){
+		int damageAmount = -(damage - player.getArmourAbsorption());
+		player.addHealth(damageAmount)
+		return -damageAmount;
 	}
 
 }
