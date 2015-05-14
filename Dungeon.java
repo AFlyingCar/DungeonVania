@@ -12,7 +12,7 @@ import org.apache.commons.lang3.SerializationUtils;
 public class Dungeon{
 	private static ArrayList<String> chosen_names;
 	private ArrayList<Room> rooms;
-	private final String NAME;
+	private String NAME; // Supposed to be final, but can't get it to work :(
 	private int c_room;
 
 	private final int MAX_AMOUNT_OF_ROOMS = 100;
