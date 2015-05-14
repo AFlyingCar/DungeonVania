@@ -10,11 +10,13 @@ import java.util.ArrayList;
 
 class DungeonVania{
 	private static Player player;
+	private static Dungeon dungeon;
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
 		System.out.println("Name: ");
 		String name = input.nextLine();
 		player = new Player(name);
+		
 		System.out.println(player.getName() + ": starts in the town");
 		System.out.println(player.getName() + ": checks their pockets and finds " + player.getMoney());
 		System.out.println("0. Go to Bed");
@@ -41,7 +43,7 @@ class DungeonVania{
 	
 	public static void getMenu(int choice){
 		if(choice == 1){
-			System.out.println(player.getName() + ": walks to the nearby dungeon");
+			goToDungeon();
 		}else if(choice == 2)
 			System.out.println(player.getName() + ": walks to the nearby store");
 		else if(choice == 3){
@@ -54,5 +56,11 @@ class DungeonVania{
 
 	public static void endGame(){
 		System.exit(0);
+	}
+
+	public static goToDungeon(){
+		dungeon = new Dungeon();
+		choice = -1;
+		while(choice != 0 || dungeon.getCurrentRoom().getEnemy(0).isDead())
 	}
 }
