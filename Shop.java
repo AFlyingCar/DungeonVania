@@ -22,7 +22,7 @@ class Shop{
 		System.out.println("1. Buy Health Potions");
 		System.out.println("2. Upgrade Armor");
 		System.out.println("3. Upgrade Weapon");
-		System.out.println("Choice: "):
+		System.out.println("Choice: ");
 		int choice = input.nextInt();
 		if(choice == 0)
 			return(player.getName + ": leaves the store");
@@ -71,10 +71,9 @@ class Shop{
 					break;
 			}
 			return(player.getName() + ": bought " + count + "armor upgrade(s)\n" + player.getName() + "'s gold: " + player.getMoney());
-			}else{
-				System.out.println("You cant bye " + choice + " armor upgrades");
-				buyHealth();
-			}
+		}else{
+			System.out.println("You cant bye " + choice + " armor upgrades");
+			buyHealth();
 		}
 	}
 
@@ -91,11 +90,9 @@ class Shop{
 					break;
 			}
 			return(player.getName() + ": bought " + count + "weapon upgrades(s)\n" + player.getName() + "'s gold: " + player.getMoney());
-			}else{
-			System.out.println("You cant bye " + choice + " weapon upgrades");
-			buyHealth();
-			}
+		}else{
+		System.out.println("You cant bye " + choice + " weapon upgrades");
+		buyHealth();
 		}
 	}
-
 }
