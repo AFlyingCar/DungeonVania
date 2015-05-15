@@ -61,6 +61,13 @@ public class Enemy{
 		return money;
 	}
 
+	// Action methods, to be carried out by the enemy during battle
+
+	public void defend(){
+		if(defense < 10)
+			defense++;
+	}
+
 	public int damagePlayer(Player player){
 		int damageAmount = -(damage - player.getArmourAbsorption());
 		player.addHealth(damageAmount);
