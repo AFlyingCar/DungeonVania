@@ -8,8 +8,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 public class Player{
 	private ArrayList<Item> inventory;
 	private final String NAME;
@@ -127,20 +125,26 @@ public class Player{
 		health += newHealth;
 	}
 
+	public int getArmourAbsorption(){
+		return ((Integer)inventory.get(1).getItemAttribute("DEFENSE")).intValue()/2;
+	}
+
 	/*
 	Causes damage to enemy based on the player's current weapon.
 	PreCondition: enemy is not null, inventory.get(0) is not null
 	PostCondition: enemy has taken a random amount of damage from the weapon's MIN_DAMAGE to the weapon's MAX_DAMAGE
 	*/
-	// public int damageEnemy(Enemy enemy){
-	// 	Item weapon = inventory.get(0);
-	// 	int minDamage = ((Integer)weapon.getItemAttribute("MIN_DAMAGE")).intValue();
-	// 	int maxDamage = ((Integer)weapon.getItemAttribute("MAX_DAMAGE")).intValue();
-	// 	int damageAmount = -(int)(Math.random() * (maxDamage - minDamage + 1)) - 1;
+	public int damageEnemy(Enemy enemy){
+		Item weapon = inventory.get(0);
+		int minDamage = ((Integer)weapon.getItemAttribute("MIN_DAMAGE")).intValue();
+		int maxDamage = ((Integer)weapon.getItemAttribute("MAX_DAMAGE")).intValue();
+		int damageAmount = (int)(Math.random() * (maxDamage - minDamage + 1)) - 1;
+		damageAmount -= enemy.getDefense();
 
-	// 	enemy.addHealth(damageAmount);
-	// 	return damageAmount;
-	// }
+		enemy.addHealth(-damageAmount);
+		return damageAmount;
+	}
+
 	/*
 	Uses up a potion from the player's inventory, so long as the amount of potions is > 0
 	PreCondition: inventory is not null, inventory.get(2) is not null
@@ -223,12 +227,8 @@ public class Player{
 		return false;
 	}
 
-	public byte[] getInventoryAsByteArray(){
-		return SerializationUtils.serialize(inventory);
-	}
-
-	public void buildInventoryFromByteArray(byte[] bytes){
-		inventory = SerializationUtils.deserialize(bytes);
+	public void setInventory(ArrayList<Item> inv){
+		inventory = inv;
 	}
 
 	/*
