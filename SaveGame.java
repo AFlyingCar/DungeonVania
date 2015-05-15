@@ -12,7 +12,7 @@ import java.util.Map;
 public class SaveGame{
 	private static final byte[] MAGIC = {(byte)0xde,(byte)0xad,(byte)0xbe,(byte)0xef};
 
-	public static State load(){
+	public static Player load(){
 		try{
 			File file = new File(".\\Saves\\player.txt");
 			if(!file.exists()){
@@ -43,7 +43,7 @@ public class SaveGame{
 			}
 			p.setInventory(inv);
 
-			return new State(p);
+			return p;
 
 		}catch(Exception e){
 			System.out.println("Failed to load save file.");
