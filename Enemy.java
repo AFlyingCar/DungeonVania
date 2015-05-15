@@ -9,7 +9,7 @@ public class Enemy{
 	protected static int count = 0;
 	public static int enemyInRoom;
 	private int health;
-	private int money;
+	protected int money;
 	protected String name;
 	protected int damage;
 	protected int defense;
@@ -21,20 +21,20 @@ public class Enemy{
 		generateDamage();
 	}
 
-	private void generateHealth(){
-		health = (int)(Math.random() * (10 * count * (enemyInRoom/10.0)))
+	protected void generateHealth(){
+		health = (int)(Math.random() * (10 * count * (enemyInRoom/10.0)));
 	}
 
-	private void generateMoney(){
-		money = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)))
+	protected void generateMoney(){
+		money = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)));
 	}
 
-	private void generateDamage(){
-		damage = (int)(Math.random() * (count * (enemiesInRoom/10.0)))
+	protected void generateDamage(){
+		damage = (int)(Math.random() * (count * (enemyInRoom/10.0)));
 	}
 
-	private void generateDefense(){
-		defense = (int)(Math.random() * (2 * count * (enemiesInRoom/10.0)))
+	protected void generateDefense(){
+		defense = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)));
 	}
 
 	public void addHealth(int newHealth){
@@ -63,7 +63,7 @@ public class Enemy{
 
 	public int damagePlayer(Player player){
 		int damageAmount = -(damage - player.getArmourAbsorption());
-		player.addHealth(damageAmount)
+		player.addHealth(damageAmount);
 		return -damageAmount;
 	}
 
