@@ -38,6 +38,8 @@ public class Item{
 			throw new KeyAlreadyExistsException("Key " + key + " already exists.");
 	}
 
+	public Map<String,Object> getAllAttributes(){ return attributes; }
+
 	/*
 	Returns the attribute associated with the String key.
 	PreCondition: attributes is not null
@@ -66,47 +68,6 @@ public class Item{
 	PreCondition: NAME has been initialized
 	*/
 	public String getName(){ return NAME; }
-
-	public byte[] byteValue(){
-		byte[] item;
-		int length = attributes.size();
-		int pos = 0;
-
-		item = new byte[length];
-
-		for(Map.Entry<String,Object> e : attributes.entrySet()){
-			item[pos] = (byte)0x01;
-			pos++;
-			
-			for(byte b : e.getKey().getBytes()){
-				item[pos] = (byte)b;
-				pos++;
-			}
-			
-			item[pos] = (byte)0x02;
-			pos++;
-
-			byte[] v;
-			try{
-				ByteArrayOutputStream val = new ByteArrayOutputStream();
-				ObjectOutputStream o = new ObjectOutputStream(val);
-				o.writeObject(e.getValue());
-				v = val.toByteArray();
-			}catch(IOException exception){
-				v = new byte[1];
-				v[0] = (byte)0x00;
-			}
-
-			for(byte b : v){
-				item[pos] = (byte)b;
-				pos++;
-			}
-
-			item[pos] = (byte)0x17;
-		}
-
-		return item;
-	}
 
 	public String toString(){
 		String repr = NAME + "\n";
