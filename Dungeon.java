@@ -90,6 +90,23 @@ public class Dungeon{
 		return rooms.get(c_room);
 	}
 
+	/*
+	Performs actions for each enemy in the current room. Assumes that the player has already performed an action.
+	PreCondition: rooms is not null, p is not null
+	*/
+	public void Execute(Player p){
+		Room r = getCurrentRoom();
+		for(Enemy e : r.getEnemies()){
+			int action = (int)(Math.random()*1);
+			switch(action){
+				case 0:
+				 enemy.damagePlayer(p);
+				case 1:
+				 enemy.defend();
+			}
+		}
+	}
+
 	public String getName(){
 		return NAME;
 	}
