@@ -7,8 +7,6 @@
 
 import java.util.ArrayList;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 public class Dungeon{
 	private static ArrayList<String> chosen_names;
 	private ArrayList<Room> rooms;
@@ -94,13 +92,5 @@ public class Dungeon{
 
 	public String getName(){
 		return NAME;
-	}
-
-	public byte[] byteValue(){
-		return SerializationUtils.serialize(rooms);
-	}
-
-	public void buildDungeonFromByteArray(byte[] data){
-		rooms = SerializationUtils.deserialize(data);
 	}
 }
