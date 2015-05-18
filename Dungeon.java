@@ -96,13 +96,18 @@ public class Dungeon{
 	*/
 	public void Execute(Player p){
 		Room r = getCurrentRoom();
+		if(canMoveToNextRoom() && !r.isBossRoom()){
+			r.increaseTime()
+			return;
+		}
+
 		for(Enemy e : r.getEnemies()){
 			int action = (int)(Math.random()*1);
 			switch(action){
 				case 0:
-				 enemy.damagePlayer(p);
+				 e.damagePlayer(p);
 				case 1:
-				 enemy.defend();
+				 e.defend();
 			}
 		}
 	}
