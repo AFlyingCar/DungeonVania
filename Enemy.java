@@ -74,12 +74,8 @@ public class Enemy{
 		return -damageAmount;
 	}
 
-<<<<<<< HEAD
-	public boolean isDead(){ return false; }
-=======
 	public boolean isDead(){
 		return(health <= 0);
 	}
->>>>>>> 3a46fa1d905a66c1ffa47563f670170e02fff578
 
 }
