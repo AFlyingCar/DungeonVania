@@ -13,11 +13,19 @@ public class DungeonVania{
 	private static Player player;
 	private static Dungeon dungeon;
 	private static Shop shop;
+	private static Scanner input;
 	public static void main(String[] args){
-		Scanner input = new Scanner(System.in);
-		System.out.println("Name: ");
-		String name = input.nextLine();
-		player = new Player(name);
+		input = new Scanner(System.in);
+		if(doesSaveFileExist()){
+			System.out.println("A save file exists, would you like to load it? (yes/no)");
+			if(yesno())
+				player = SaveGame.load();
+			else{
+				System.out.println("Name: ");
+				String name = input.nextLine();
+				player = new Player(name);				
+			}
+		}
 		shop = new Shop(player);
 		
 		System.out.println(player.getName() + ": starts in the town");
@@ -36,11 +44,27 @@ public class DungeonVania{
 		}
 	}
 
+	public static boolean yesNo(){
+		String yn = "";
+		while(true){
+			yn = input.nextLine();
+			switch(yn){
+				case "yes":
+				 return true;
+				case "no":
+				 return false;
+				default:
+				 System.out.println("Yes or no please!");
+			}
+		}
+	}
+
 	public static void getMenuText(){
 		System.out.println("0. Go to Bed");
 		System.out.println("1. Go to the nearby dungeon");
 		System.out.println("2. Go to the store");
 		System.out.println("3. Check Inventory");
+		System.out.println("4. Save Game");
 		System.out.print("Choice: ");
 	}
 	
@@ -53,6 +77,9 @@ public class DungeonVania{
 			ArrayList<Item> playerInv = player.getInventory();
 			for(int i = 0; i < playerInv.size(); i++)
 				System.out.println((i + 1) + ": " + playerInv.get(i).toString());
+		}else if(choice == 4){
+			System.out.println("Saving game...");
+			SaveGame.save(player);
 		}else if(choice == 0)
 			endGame();
 	}
