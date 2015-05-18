@@ -4,11 +4,12 @@
 *5/11/15
 *The Main file
 */
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 
-class DungeonVania{
+public class DungeonVania{
 	private static Player player;
 	private static Dungeon dungeon;
 	public static void main(String[] args){
@@ -58,9 +59,10 @@ class DungeonVania{
 		System.exit(0);
 	}
 
-	public static goToDungeon(){
+	public static void goToDungeon(){
 		dungeon = new Dungeon();
-		choice = -1;
+		int choice = -1;
 		while(choice != 0 || dungeon.getCurrentRoom().getEnemy(0).isDead())
+			break;
 	}
 }
