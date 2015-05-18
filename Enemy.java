@@ -74,4 +74,8 @@ public class Enemy{
 		return -damageAmount;
 	}
 
+	public boolean isDead(){
+		return(health <= 0);
+	}
+
 }
