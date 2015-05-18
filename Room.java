@@ -8,12 +8,14 @@
 // I did not hit her I did not... oh hai Mark!
 // Tommy Wiseau -(the Room)
 
+import java.util.ArrayList;
+
 public class Room{
 	private int hp_amount;
 	private int gold_amount;
 	private int room_size;
 	private int time;
-	private Enemy[] enemies;
+	private ArrayList<Enemy> enemies;
 	private boolean bossRoom;
 
 	public Room(boolean bossRoom){
@@ -40,9 +42,7 @@ public class Room{
 	}
 
 	public Enemy removeEnemy(int index){
-		Enemy n = enemies[index];
-		enemies[index] = null;
-		return n;
+		return enemies.remove(index);
 	}
 
 	/*
@@ -87,9 +87,9 @@ public class Room{
 
 	public int getRoomSize(){ return room_size; }
 
-	public Enemy[] getEnemies(){ return enemies; }
+	public ArrayList<Enemy> getEnemies(){ return enemies; }
 
-	public Enemy getEnemy(int index){ return enemies[index]; }
+	public Enemy getEnemy(int index){ return enemies.get(index); }
 
 	public int getEnemyAmount(){ return enemies.length; }
 
@@ -97,13 +97,14 @@ public class Room{
 	Returns true if and only if there are 0 enemies.
 	PreCondition: enemies has been initialized
 	*/
-	public boolean canMoveToNextRoom(){ return isObjectArrayEmpty(enemies); }
+	// public boolean canMoveToNextRoom(){ return isObjectArrayEmpty(enemies); }
+	public boolean canMoveToNextRoom(){ return enemies.isEmpty(); }
 
 	/*
-	Returns true if and only if there is 1 enemy.
+	Returns true if and only if the 1 enemy is a boss.
 	PreCondition: enemies has been initialized
 	*/
-	public boolean isBossRoom(){ return enemies.length == 1; }
+	public boolean isBossRoom(){ return enemies.get(0) instanceof Boss; }
 
 	/*
 	Returns true if an array of Object's is empty (all elements are null)
