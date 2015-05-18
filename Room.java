@@ -12,6 +12,7 @@ public class Room{
 	private int hp_amount;
 	private int gold_amount;
 	private int room_size;
+	private int time;
 	private Enemy[] enemies;
 	private boolean bossRoom;
 
@@ -27,6 +28,21 @@ public class Room{
 			generateRandomEnemies();
 		}
 		generateRandomLoot();
+		time = 0;
+	}
+
+	public int increaseTime(){
+		time++;
+		if(time > 5){
+			time = 0;
+			generateRandomEnemies();
+		}
+	}
+
+	public Enemy removeEnemy(int index){
+		Enemy n = enemies[index];
+		enemies[index] = null;
+		return n;
 	}
 
 	/*
@@ -74,6 +90,8 @@ public class Room{
 	public Enemy[] getEnemies(){ return enemies; }
 
 	public Enemy getEnemy(int index){ return enemies[index]; }
+
+	public int getEnemyAmount(){ return enemies.length; }
 
 	/*
 	Returns true if and only if there are 0 enemies.
