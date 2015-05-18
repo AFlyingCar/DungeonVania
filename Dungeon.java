@@ -76,7 +76,8 @@ public class Dungeon{
 	}
 
 	/*
-	Returns true if and only if 
+	Returns true if and only if the player can move to next room
+	PreCondition: Current room is not null
 	*/
 	public boolean canMoveToNextRoom(){
 		return getCurrentRoom().canMoveToNextRoom();
