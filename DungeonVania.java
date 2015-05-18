@@ -133,9 +133,9 @@ public class DungeonVania{
 			dungeon.execute(player);
 		}
 	}
-}
 
-public static void goToStore(){
-	System.out.println(player.getName() + ": enters the store");
-	System.out.println(shop.menu());
+	public static void goToStore(){
+		System.out.println(player.getName() + ": enters the store");
+		System.out.println(shop.menu());
+	}
 }
