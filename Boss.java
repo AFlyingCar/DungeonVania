@@ -1,3 +1,10 @@
+/*
+ * Tyler Robbins
+ * 5/18/15
+ * Boss.java
+ * Special enemy with more health, money, damage, and defense.
+ */
+
 public class Boss extends Enemy{
 	public Boss(){
 		super();
