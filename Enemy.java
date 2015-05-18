@@ -21,18 +21,34 @@ public class Enemy{
 		generateDamage();
 	}
 
+	/*
+	Generates a random amount of health, depending on how many enemies are in the room.
+	PostCondition: health is initialized to some int
+	*/
 	protected void generateHealth(){
 		health = (int)(Math.random() * (10 * count * (enemyInRoom/10.0)));
 	}
 
+	/*
+	Generates a random amount of money, depending on how many enemies are in the room.
+	PostCondition: money is initialized to some int
+	*/
 	protected void generateMoney(){
 		money = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)));
 	}
 
+	/*
+	Generates a random amount of damage, depending on how many enemies are in the room.
+	PostCondition: damage is initialized to some int
+	*/
 	protected void generateDamage(){
 		damage = (int)(Math.random() * (count * (enemyInRoom/10.0)));
 	}
 
+	/*
+	Generates a random amount of defense, depending on how many enemies are in the room.
+	PostCondition: defense is initialized to some int
+	*/
 	protected void generateDefense(){
 		defense = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)));
 	}
@@ -63,11 +79,18 @@ public class Enemy{
 
 	// Action methods, to be carried out by the enemy during battle
 
+	/*
+	Increases enemy defense by 1.
+	PostCondition: 0 < defense < 10
+	*/
 	public void defend(){
 		if(defense < 10)
 			defense++;
 	}
 
+	/*
+	Damages the player, and returns the amount of damage dealt.
+	*/
 	public int damagePlayer(Player player){
 		int damageAmount = -(damage - player.getArmourAbsorption());
 		player.addHealth(damageAmount);
