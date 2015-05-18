@@ -93,7 +93,6 @@ public class SaveGame{
 		return true;
 	}
 
-	//TODO: Scan current directory for save file
 	private static boolean doesSaveFileExist(){
 		File file = new File(".\\Saves\\player.txt");
 		return file.exists();
