@@ -47,6 +47,7 @@ public class SaveGame{
 
 		}catch(Exception e){
 			System.out.println("Failed to load save file.");
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
