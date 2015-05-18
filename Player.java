@@ -237,8 +237,9 @@ public class Player{
 	public String toString(){
 		String repr = NAME + "\n\n";
 		repr += "Money: " + money + "\tHealth: " + health;
+		repr += "\n";
 		for(Item i : inventory)
-			repr += i + "\n";
+			repr += i.toString() + "\n";
 		return repr;
 	}
 }
