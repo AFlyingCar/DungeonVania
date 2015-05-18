@@ -25,7 +25,7 @@ class Shop{
 		System.out.println("Choice: ");
 		int choice = input.nextInt();
 		if(choice == 0)
-			return(player.getName + ": leaves the store");
+			return(player.getName() + ": leaves the store");
 		else if(choice == 1)
 			return buyHealth();
 		else if(choice == 2)
@@ -46,7 +46,7 @@ class Shop{
 		int count = 0;
 		if(choice > 0){
 			for(int i = 0; i < choice; i++){
-				if(buyPotion())
+				if(player.buyPotion())
 					count++;
 				else
 					break;
@@ -54,7 +54,7 @@ class Shop{
 			return(player.getName() + ": bought " + count + "potion(s)\n" + player.getName() + "'s gold: " + player.getMoney());
 		}else{
 			System.out.println("You cant bye " + choice + " potions");
-			buyHealth();
+			return buyHealth();
 		}
 	}
 
@@ -65,7 +65,7 @@ class Shop{
 		int count = 0;
 		if(choice > 0){
 			for(int i = 0; i < choice; i++){
-				if(buyPotion())
+				if(player.buyPotion())
 					count++;
 				else
 					break;
@@ -73,7 +73,7 @@ class Shop{
 			return(player.getName() + ": bought " + count + "armor upgrade(s)\n" + player.getName() + "'s gold: " + player.getMoney());
 		}else{
 			System.out.println("You cant bye " + choice + " armor upgrades");
-			buyHealth();
+			return buyArmor();
 		}
 	}
 
@@ -84,15 +84,15 @@ class Shop{
 		int count = 0;
 		if(choice > 0){
 			for(int i = 0; i < choice; i++){
-				if(buyPotion())
+				if(player.buyPotion())
 					count++;
 				else
 					break;
 			}
 			return(player.getName() + ": bought " + count + "weapon upgrades(s)\n" + player.getName() + "'s gold: " + player.getMoney());
 		}else{
-		System.out.println("You cant bye " + choice + " weapon upgrades");
-		buyHealth();
+			System.out.println("You cant bye " + choice + " weapon upgrades");
+			return buyDamage();
 		}
 	}
 }
