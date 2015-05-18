@@ -51,11 +51,9 @@ public class SaveGame{
 		return null;
 	}
 
-	public static void save(State s){
+	public static void save(Player p){
 		try{
 			// Cannot save in a dungeon
-			Player p = s.getPlayer();
-
 			ArrayList<Item> inv = p.getInventory();
 
 			// Create save directory
@@ -97,6 +95,7 @@ public class SaveGame{
 
 	//TODO: Scan current directory for save file
 	private static boolean doesSaveFileExist(){
-		return false;
+		File file = new File(".\\Saves\\player.txt");
+		return file.exists();
 	}
 }
