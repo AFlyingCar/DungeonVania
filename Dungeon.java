@@ -102,13 +102,18 @@ public class Dungeon{
 			return;
 		}
 
-		for(Enemy e : r.getEnemies()){
-			int action = (int)(Math.random()*1);
+		for(int i = 0; i < r.getEnemies().size(); i++){
+			Enemy e = r.getEnemies().get(i);
+			int action = (int)(Math.random()*2);
 			switch(action){
 				case 0:
-				 e.damagePlayer(p);
+				 int d = e.damagePlayer(p);
+				 System.out.println("Enemy " + (i+1) + " attacked " + p.getName() + " for " + d + " damage!");
+				 break;
 				case 1:
 				 e.defend();
+				 System.out.println("Enemy " + (i+1) + "defended itself!");
+				 break;
 			}
 		}
 	}
