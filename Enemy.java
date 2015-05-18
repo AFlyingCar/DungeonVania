@@ -53,6 +53,13 @@ public class Enemy{
 		defense = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)));
 	}
 
+	/*
+	Generates a random name. Cached for efficiency.
+	*/
+	protected void generateName(){
+		name = "Enemy";
+	}
+
 	public void addHealth(int newHealth){
 		health += newHealth;
 	}
@@ -99,6 +106,15 @@ public class Enemy{
 
 	public boolean isDead(){
 		return(health <= 0);
+	}
+
+	public float FastInvSqrt(float x){
+		float xhalf = 0.5f * x;
+		int i = (int)x;
+		i = 0x5f3759df - (i >> 1);
+		x = (float)i;
+		x = x*(1.5f-(xhalf*x*x));
+		return x;
 	}
 
 }
