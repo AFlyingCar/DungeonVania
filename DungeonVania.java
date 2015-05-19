@@ -88,9 +88,11 @@ public class DungeonVania{
 			System.out.println(player.getName() + ": walks to the nearby store.");
 			goToStore();
 		}else if(choice == 3){
-			ArrayList<Item> playerInv = player.getInventory();
-			for(int i = 0; i < playerInv.size(); i++)
-				System.out.println((i + 1) + ": " + playerInv.get(i).toString());
+			// System.out.println("Health: " + player.getHealth()
+			// ArrayList<Item> playerInv = player.getInventory();
+			// for(int i = 0; i < playerInv.size(); i++)
+			// 	System.out.println((i + 1) + ": " + playerInv.get(i).toString());
+			System.out.println(player.toString());
 		}else if(choice == 4){
 			if(SaveGame.doesSaveFileExist()){
 				System.out.print("A save file already exists, are you sure you would like to overwrite it? (yes/no) ");
@@ -115,32 +117,50 @@ public class DungeonVania{
 		int choice = -1;
 		while(choice != 0 || dungeon.canMoveToNextRoom()){
 			enemies = dungeon.getCurrentRoom().getEnemies();
-			System.out.println(player.getName() + ": encounters " + enemies.size() + " enemie(s)");
+			if(enemies.size()>0)
+				System.out.println(player.getName() + ": encounters " + enemies.size() + " enemies");
+	
 			for(int i = 0; i < enemies.size(); i++){
 				System.out.print(enemies.get(i).getName() + " " + (i + 1) + "\'s Health: " + enemies.get(i).getHealth() + "\t");
 				System.out.print("Defense: " + enemies.get(i).getDefense() + "\t");
 				System.out.println("Damage: " + enemies.get(i).getDamage());
 			}
-			System.out.println("1. Attack");
-			System.out.println("2. Check Inventory");
-			System.out.println("3. Use Items");
+
+			if(dungeon.canMoveToNextRoom()){
+				System.out.println("1. Search room");
+				System.out.println("2. Check Inventory");
+				System.out.println("3. Use Items");
+				System.out.println("4. Move to next room");
+				System.out.println("0. Escape");
+			}else{
+				System.out.println("1. Attack");
+				System.out.println("2. Check Inventory");
+				System.out.println("3. Use Items");
+				System.out.println("4. Move to next room");
+				System.out.println("0. Escape");
+			}
+
 			System.out.print("Choice: ");
 			int intPut = input.nextInt();
 			if(intPut == 1){
-				if(enemies.size() > 1){
-					System.out.println("Which enemy would you like to attack");
-					for(int i = 0; i < enemies.size(); i++){
-						System.out.print("Enemy " + (i+1) + "\t");
-					}
-					System.out.print("Choice: ");
-					intPut = input.nextInt()-1;
-					int damageTaken = player.damageEnemy(enemies.get(intPut));
-					System.out.println(enemies.get(intPut).getName() + " " + (intPut + 1) +  ": took " + damageTaken + " damage");
-					if(enemies.get(intPut).isDead())
-						System.out.println(enemies.get(intPut).getName() + " " + (intPut + 1) + " died!");
+				if(dungeon.canMoveToNextRoom()){
+					player.searchRoom(dungeon.getCurrentRoom());
 				}else{
-					int damageTaken = player.damageEnemy(enemies.get(0));
-					System.out.println(enemies.get(0).getName() + " " + 1 + ": took " + damageTaken + " damage");
+					if(enemies.size() > 1){
+						System.out.println("Which enemy would you like to attack");
+						for(int i = 0; i < enemies.size(); i++){
+							System.out.print("Enemy " + (i+1) + "\t");
+						}
+						System.out.print("\nChoice: ");
+						intPut = input.nextInt()-1;
+						int damageTaken = player.damageEnemy(enemies.get(intPut));
+						System.out.println(enemies.get(intPut).getName() + " " + (intPut + 1) +  ": took " + damageTaken + " damage");
+						if(enemies.get(intPut).isDead())
+							System.out.println(enemies.get(intPut).getName() + " " + (intPut + 1) + " died!");
+					}else{
+						int damageTaken = player.damageEnemy(enemies.get(0));
+						System.out.println(enemies.get(0).getName() + " " + 1 + ": took " + damageTaken + " damage");
+					}
 				}
 			}else if(intPut == 2){
 				System.out.println(player.toString());
@@ -151,11 +171,25 @@ public class DungeonVania{
 				intPut = input.nextInt();
 				for(int i = 0; i < intPut; i++)
 					player.usePotion();
+			}else if(intPut == 4){
+				if(dungeon.moveToNextRoom())
+					System.out.println(player.getName() + " moves on from room " + (dungeon.getCRoom()-1) + ", and ventures further into the dungeon.");
+				else
+					System.out.println("Cannot move to the next room, because there are enemies in the way!");
+				continue;
+			}else if(intPut == 0){
+				int damageAmount = (int)(Math.random()*(enemies.size()))+1;
+				System.out.println(player.getName() + " tried to escape, and took " + damageAmount + " damage in the process.");
+				player.addHealth(-damageAmount);
+				return;
+			}else{
+				System.out.println("Invalid choice!");
+				continue;
 			}
 			dungeon.Execute(player);
 
 			if(player.isDead()){
-				deathMessage();
+				deathMessage(dungeon);
 				return;
 			}
 		}
@@ -166,8 +200,8 @@ public class DungeonVania{
 		System.out.println(shop.menu());
 	}
 
-	public static void deathMessage(){
-		System.out.println("After many battles, " + player.getName() + " was finally defeated.");
+	public static void deathMessage(Dugeon d){
+		System.out.println("After many battles, " + player.getName() + " was finally defeated in room #" + d.getCRoom() + " of the Dugeon " + d.getName() + ".");
 		System.out.println(player.getName() + " died while carrying " + player.getMoney() + " gold and " + player.getInventory().get(0).getItemAttribute("AMOUNT") + " potions.");
 		System.out.print("Would you like to load a previous save, or quit? (yes/no) ");
 		if(yesNo())
