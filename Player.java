@@ -45,7 +45,7 @@ public class Player{
 		i2.addAttribute("MAX_TIER",new Integer(5));
 		i2.addAttribute("UPGRADE_COST",new Integer(10));
 
-		i3.addAttribute("MIN_DAMAGE",new Integer(3));
+		i3.addAttribute("MIN_DAMAGE",new Integer(2));
 		i3.addAttribute("MAX_DAMAGE",new Integer(4));
 		i3.addAttribute("TIER",new Integer(0));
 		i3.addAttribute("MAX_TIER",new Integer(5));
@@ -135,13 +135,13 @@ public class Player{
 	PostCondition: enemy has taken a random amount of damage from the weapon's MIN_DAMAGE to the weapon's MAX_DAMAGE
 	*/
 	public int damageEnemy(Enemy enemy){
-		if(enemy == null) return -1;
+		// if(enemy == null) return -1;
 
 		// There was a really stupid mistake here, but I fixed it
 		Item weapon = inventory.get(2);
 		int minDamage = ((Integer)weapon.getItemAttribute("MIN_DAMAGE")).intValue();
 		int maxDamage = ((Integer)weapon.getItemAttribute("MAX_DAMAGE")).intValue();
-		int damageAmount = (int)(Math.random() * (maxDamage - minDamage + 1)) - 1;
+		int damageAmount = (int)(Math.random() * (maxDamage-minDamage))+minDamage;
 		damageAmount = damageAmount - enemy.getDefense();
 
 		if(damageAmount < 0) damageAmount = 0;
@@ -247,6 +247,21 @@ public class Player{
 
 	public boolean isDead(){
 		return health <= 0;
+	}
+
+	public void searchRoom(Room r){
+		int[] loot = r.loot();
+		
+		if(loot == null){
+			System.out.println("It doesn't appear as though there is anything left in this room.");
+			return;
+		}
+
+		Item potionPouch = inventory.get(0);
+		int potionAmt = ((Integer)potionPouch.getItemAttribute("AMOUNT")).intValue();
+		potionPouch.setItemAttribute("AMOUNT",new Integer(potionAmt+loot[0]));
+		addMoney(loot[1]);
+		System.out.println("Found " + loot[1] + " gold and " + loot[0] + " potions.");
 	}
 
 	/*
