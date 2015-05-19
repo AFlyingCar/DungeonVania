@@ -137,11 +137,26 @@ public class DungeonVania{
 					player.usePotion();
 			}
 			dungeon.Execute(player);
+
+			if(player.isDead()){
+				deathMessage();
+				return;
+			}
 		}
 	}
 
 	public static void goToStore(){
 		System.out.println(player.getName() + ": enters the store");
 		System.out.println(shop.menu());
+	}
+
+	public static void deathMessage(){
+		System.out.println("After many battles, " + player.getName() + " was finally defeated.");
+		System.out.println(player.getName() + " died while carrying " + player.getMoney() + " gold and " + player.getInventory().get(0).getItemAttribute("AMOUNT") + " potions.");
+		System.out.print("Would you like to load a previous save, or quit? (yes/no) ");
+		if(yesNo())
+			player = SaveGame.load();
+		else
+			endGame();
 	}
 }
