@@ -116,7 +116,7 @@ public class Dungeon{
 				case 1:
 				 if(r.isBossRoom()) break;
 				 e.defend();
-				 System.out.println("Enemy " + (i+1) + "defended itself!");
+				 System.out.println("Enemy " + (i+1) + " defended itself!");
 				 break;
 			}
 		}
