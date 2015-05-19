@@ -45,7 +45,7 @@ public class Player{
 		i2.addAttribute("MAX_TIER",new Integer(5));
 		i2.addAttribute("UPGRADE_COST",new Integer(10));
 
-		i3.addAttribute("MIN_DAMAGE",new Integer(0));
+		i3.addAttribute("MIN_DAMAGE",new Integer(1));
 		i3.addAttribute("MAX_DAMAGE",new Integer(2));
 		i3.addAttribute("TIER",new Integer(0));
 		i3.addAttribute("MAX_TIER",new Integer(5));
@@ -131,16 +131,23 @@ public class Player{
 
 	/*
 	Causes damage to enemy based on the player's current weapon.
-	PreCondition: enemy is not null, inventory.get(0) is not null
+	PreCondition: enemy is not null, inventory.get(2) is not null
 	PostCondition: enemy has taken a random amount of damage from the weapon's MIN_DAMAGE to the weapon's MAX_DAMAGE
 	*/
 	public int damageEnemy(Enemy enemy){
-		Item weapon = inventory.get(0);
+		if(enemy == null) return -1;
+
+		// There was a really stupid mistake here, but I fixed it
+		Item weapon = inventory.get(2);
 		int minDamage = ((Integer)weapon.getItemAttribute("MIN_DAMAGE")).intValue();
 		int maxDamage = ((Integer)weapon.getItemAttribute("MAX_DAMAGE")).intValue();
 		int damageAmount = (int)(Math.random() * (maxDamage - minDamage + 1)) - 1;
-		damageAmount -= enemy.getDefense();
+		damageAmount = damageAmount - enemy.getDefense();
 
+		if(damageAmount < 0) damageAmount = 0;
+
+		if(enemy.getDefense() > 0)
+			enemy.addDefense(-1);
 		enemy.addHealth(-damageAmount);
 		return damageAmount;
 	}
