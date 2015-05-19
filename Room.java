@@ -20,7 +20,7 @@ public class Room{
 	public Room(boolean bossRoom){
 		if(bossRoom){
 			enemies = new ArrayList<Enemy>();
-			enemies.add(new Boss());
+			enemies.add(new Boss(this));
 			room_size = 6;
 		}
 		else{
@@ -72,8 +72,8 @@ public class Room{
 
 	private void generateRandomEnemies(){
 		for(int i = 0; i < getRoomSize()*2; i++){
-			enemies.add(new Enemy());
-			logan.log_test("DEBUG - Added " + enemies.get(i));
+			enemies.add(new Enemy(this));
+			logan.log_test("Added " + enemies.get(i));
 		}
 	}
 
