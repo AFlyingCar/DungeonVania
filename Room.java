@@ -20,13 +20,14 @@ public class Room{
 
 	public Room(boolean bossRoom){
 		if(bossRoom){
-			enemies = new Enemy[1];
-			enemies[0] = new Boss();
+			enemies = new ArrayList<Enemy>();
+			enemies.add(new Boss());
 			room_size = 6;
 		}
 		else{
 			generateRandomRoomSize();
-			enemies = new Enemy[getRoomSize()*2];
+			enemies = new ArrayList<Enemy>();
+			Enemy.enemyInRoom = room_size*2;
 			generateRandomEnemies();
 		}
 		generateRandomLoot();
@@ -39,6 +40,7 @@ public class Room{
 			time = 0;
 			generateRandomEnemies();
 		}
+		return time;
 	}
 
 	public Enemy removeEnemy(int index){
@@ -66,8 +68,9 @@ public class Room{
 	}
 
 	private void generateRandomEnemies(){
-		for(int i = 0; i < enemies.length; i++){
-			enemies[i] = new Enemy();
+		for(int i = 0; i < getRoomSize()*2; i++){
+			enemies.add(new Enemy());
+			Logger.log_test("DEBUG - Added " + enemies.get(i));
 		}
 	}
 
@@ -91,7 +94,7 @@ public class Room{
 
 	public Enemy getEnemy(int index){ return enemies.get(index); }
 
-	public int getEnemyAmount(){ return enemies.length; }
+	public int getEnemyAmount(){ return enemies.size(); }
 
 	/*
 	Returns true if and only if there are 0 enemies.
