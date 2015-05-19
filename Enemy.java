@@ -51,7 +51,7 @@ public class Enemy{
 	*/
 	protected void generateDamage(){
 		// damage = (int)(Math.random() * (count * (enemyInRoom/10.0)));
-		damage = (int)(Math.random()*(10-enemyInRoom))+(enemyInRoom);
+		damage = ((int)(Math.random()*(10-enemyInRoom)))+3;
 	}
 
 	/*
