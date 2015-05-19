@@ -238,6 +238,10 @@ public class Player{
 		inventory = inv;
 	}
 
+	public boolean isDead(){
+		return health <= 0;
+	}
+
 	/*
 	Returns the player's name, followed by their money, health, and inventory.
 	*/
