@@ -6,8 +6,8 @@
  */
 
 public class Boss extends Enemy{
-	public Boss(){
-		super();
+	public Boss(Room r){
+		super(r);
 		name = "Generic Boss";
 		count--;
 	}
