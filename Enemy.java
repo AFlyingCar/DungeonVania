@@ -13,11 +13,13 @@ public class Enemy{
 	protected String name;
 	protected int damage;
 	protected int defense;
+	protected Room room;
 
-	public Enemy(){
+	public Enemy(Room r){
 		count ++;
 		// generateDefense();
 		defense = 0;
+		room = r;
 		generateHealth();
 		generateMoney();
 		generateDamage();
