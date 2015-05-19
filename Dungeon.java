@@ -90,6 +90,10 @@ public class Dungeon{
 		return rooms.get(c_room);
 	}
 
+	public int getCRoom(){
+		return c_room;
+	}
+
 	/*
 	Performs actions for each enemy in the current room. Assumes that the player has already performed an action.
 	PreCondition: rooms is not null, p is not null
