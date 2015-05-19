@@ -21,6 +21,7 @@ public class SaveGame{
 			}
 			BufferedReader f = new BufferedReader(new FileReader(file));
 
+			Logger.log_std("Loading Player data...");
 			Player p;
 			String name = f.readLine();
 			p = new Player(name);
@@ -28,6 +29,7 @@ public class SaveGame{
 			p.setHealth(Integer.valueOf(f.readLine()).intValue());
 			f.close();
 
+			Logger.log_std("Loading inventory data...");
 			Item i;
 			ArrayList<Item> inv = new ArrayList<Item>();
 			File[] allItems = new File(".\\SAVES\\Inventory").listFiles();
@@ -47,7 +49,8 @@ public class SaveGame{
 
 		}catch(Exception e){
 			System.out.println("Failed to load save file.");
-			System.out.println(e.getMessage());
+			Logger.log_error("Failed to load save file: ");
+			Logger.log_error(e.getMessage());
 		}
 		return null;
 	}
@@ -57,8 +60,11 @@ public class SaveGame{
 			// Cannot save in a dungeon
 			ArrayList<Item> inv = p.getInventory();
 
+			Logger.log_std("Making save directory...");
 			// Create save directory
 			new File(".\\SAVES\\Inventory").mkdirs();
+
+			Logger.log_std("Saving Player data...");
 			File f = new File(".\\Saves\\player.txt");
 			f.createNewFile();
 			PrintWriter player = new PrintWriter(f);
@@ -69,12 +75,13 @@ public class SaveGame{
 
 			PrintWriter item;
 
+			Logger.log_std("Saving inventory data...");
 			for(int i = 0; i < inv.size(); i++){
 				item = new PrintWriter(".\\SAVES\\Inventory\\item"+i+".txt");
 				item.println(inv.get(i).getName());
-				Map<String,Object> at = inv.get(i).getAllAttributes();
+				Map<String,Integer> at = inv.get(i).getAllAttributes();
 
-				for(Map.Entry<String,Object> e: at.entrySet()){
+				for(Map.Entry<String,Integer> e: at.entrySet()){
 					item.println(e.getKey() + ":" + e.getValue());
 				}
 				item.close();
@@ -82,7 +89,8 @@ public class SaveGame{
 		}
 		catch(Exception e){
 			System.out.println("Failed to save game.");
-			System.out.println(e.getMessage());
+			Logger.log_error("Failed to save game: ");
+			Logger.log_error(e.getMessage());
 		}
 	}
 
@@ -94,7 +102,7 @@ public class SaveGame{
 		return true;
 	}
 
-	private static boolean doesSaveFileExist(){
+	public static boolean doesSaveFileExist(){
 		File file = new File(".\\Saves\\player.txt");
 		return file.exists();
 	}
