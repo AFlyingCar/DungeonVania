@@ -15,10 +15,12 @@ public class Enemy{
 	protected int defense;
 	public Enemy(){
 		count ++;
-		generateDefense();
+		// generateDefense();
+		defense = 0;
 		generateHealth();
 		generateMoney();
 		generateDamage();
+		generateName();
 	}
 
 	/*
@@ -26,7 +28,9 @@ public class Enemy{
 	PostCondition: health is initialized to some int
 	*/
 	protected void generateHealth(){
-		health = (int)(Math.random() * (10 * count * (enemyInRoom/10.0)));
+		// health = (int)(Math.random() * (10 * enemyInRoom * (count/10.0)))+1;
+		// health = (int)(Math.random() * (10 * ( ( (count/4)+25 ) - (enemyInRoom/2) ) ));
+		health = (int)(Math.random()*(10+enemyInRoom))+10;
 	}
 
 	/*
@@ -34,7 +38,8 @@ public class Enemy{
 	PostCondition: money is initialized to some int
 	*/
 	protected void generateMoney(){
-		money = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)));
+		// money = (int)(Math.random() * (2 * count * (enemyInRoom/10.0)));
+		health = (int)(Math.random()*(2+enemyInRoom))+2;
 	}
 
 	/*
@@ -42,7 +47,8 @@ public class Enemy{
 	PostCondition: damage is initialized to some int
 	*/
 	protected void generateDamage(){
-		damage = (int)(Math.random() * (count * (enemyInRoom/10.0)));
+		// damage = (int)(Math.random() * (count * (enemyInRoom/10.0)));
+		damage = (int)(Math.random()*(10-enemyInRoom))+(enemyInRoom);
 	}
 
 	/*
@@ -68,6 +74,10 @@ public class Enemy{
 		health = newHealth;
 	}
 
+	public int getDamage(){
+		return damage;
+	}
+
 	public int getHealth(){
 		return health;
 	}
@@ -82,6 +92,10 @@ public class Enemy{
 
 	public int getMoney(){
 		return money;
+	}
+
+	public void addDefense(int d){
+		defense += d;
 	}
 
 	// Action methods, to be carried out by the enemy during battle
