@@ -5,8 +5,6 @@
  * Class which dictates how items work.
  */
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.IOException;
 
 import java.util.Map;
@@ -14,7 +12,7 @@ import java.util.HashMap;
 import javax.management.openmbean.KeyAlreadyExistsException;
 
 public class Item{
-	private Map<String,Object> attributes;
+	private Map<String,Integer> attributes;
 	private final String NAME;
 
 	/*
@@ -22,7 +20,7 @@ public class Item{
 	PostCondition: attributes has been instantiated as a HashMap, NAME has been instantiated as a String
 	*/
 	public Item(String newName){
-		attributes = new HashMap<String,Object>();
+		attributes = new HashMap<String,Integer>();
 		NAME = newName;
 	}
 
@@ -31,24 +29,24 @@ public class Item{
 	PreCondition: attributes is not null
 	PostCondition: attributes has a new key-value pair
 	*/
-	public void addAttribute(String key, Object value){
+	public void addAttribute(String key, Integer value){
 		if(!attributes.containsKey(key))
 			attributes.put(key,value);
 		else
 			throw new KeyAlreadyExistsException("Key " + key + " already exists.");
 	}
 
-	public Map<String,Object> getAllAttributes(){ return attributes; }
+	public Map<String,Integer> getAllAttributes(){ return attributes; }
 
 	/*
 	Returns the attribute associated with the String key.
 	PreCondition: attributes is not null
 	*/
-	public Object getItemAttribute(String key){
+	public Integer getItemAttribute(String key){
 		return attributes.get(key);
 	}
 
-	public void setItemAttribute(String key,Object value){
+	public void setItemAttribute(String key,Integer value){
 		if(attributes.containsKey(key))
 			attributes.put(key,value);
 		else
@@ -71,7 +69,7 @@ public class Item{
 
 	public String toString(){
 		String repr = NAME + "\n";
-		for(Map.Entry<String,Object> e : attributes.entrySet()){
+		for(Map.Entry<String,Integer> e : attributes.entrySet()){
 			repr += e.getKey();
 			repr += ":\t";
 			repr += e.getValue();
