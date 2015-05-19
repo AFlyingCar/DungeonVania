@@ -201,7 +201,7 @@ public class Player{
 		int upgradeCost = ((Integer)armour.getItemAttribute("UPGRADE_COST")).intValue();
 		int tier = ((Integer)armour.getItemAttribute("TIER")).intValue();
 		int maxTier = ((Integer)armour.getItemAttribute("MAX_TIER")).intValue();
-		int defense = ((Integer)amrour.getItemAttribute("DEFENSE")).intValue();
+		int defense = ((Integer)armour.getItemAttribute("DEFENSE")).intValue();
 		if(upgradeCost <= money){
 			if(tier != maxTier){
 				armour.setItemAttribute("DEFENSE",new Integer(defense+1));
