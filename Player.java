@@ -45,8 +45,8 @@ public class Player{
 		i2.addAttribute("MAX_TIER",new Integer(5));
 		i2.addAttribute("UPGRADE_COST",new Integer(10));
 
-		i3.addAttribute("MIN_DAMAGE",new Integer(1));
-		i3.addAttribute("MAX_DAMAGE",new Integer(2));
+		i3.addAttribute("MIN_DAMAGE",new Integer(3));
+		i3.addAttribute("MAX_DAMAGE",new Integer(4));
 		i3.addAttribute("TIER",new Integer(0));
 		i3.addAttribute("MAX_TIER",new Integer(5));
 		i3.addAttribute("UPGRADE_COST",new Integer(10));
@@ -154,11 +154,11 @@ public class Player{
 
 	/*
 	Uses up a potion from the player's inventory, so long as the amount of potions is > 0
-	PreCondition: inventory is not null, inventory.get(2) is not null
+	PreCondition: inventory is not null, inventory.get(0) is not null
 	PostCondition: inventory->potion->AMOUNT has 1 less than it did at the start of the method
 	*/
 	public String usePotion(){
-		Item potionPouch = inventory.get(2);
+		Item potionPouch = inventory.get(0);
 		int potionAmt = ((Integer)potionPouch.getItemAttribute("AMOUNT")).intValue();
 		if(potionAmt > 0){
 			potionPouch.setItemAttribute("AMOUNT",new Integer(potionAmt-1));
@@ -175,7 +175,7 @@ public class Player{
 	PostCondition: if all conditions are met, money = money - cost, potion amount is 1 higher than when it started
 	*/
 	public boolean buyPotion(){
-		Item potionPouch = inventory.get(2);
+		Item potionPouch = inventory.get(0);
 		int potionCost = ((Integer)potionPouch.getItemAttribute("UPGRADE_COST")).intValue();
 		int potionAmt = ((Integer)potionPouch.getItemAttribute("AMOUNT")).intValue();
 		int maxPotionAmount = ((Integer)potionPouch.getItemAttribute("MAX_AMOUNT")).intValue();
@@ -201,8 +201,10 @@ public class Player{
 		int upgradeCost = ((Integer)armour.getItemAttribute("UPGRADE_COST")).intValue();
 		int tier = ((Integer)armour.getItemAttribute("TIER")).intValue();
 		int maxTier = ((Integer)armour.getItemAttribute("MAX_TIER")).intValue();
+		int defense = ((Integer)amrour.getItemAttribute("DEFENSE")).intValue();
 		if(upgradeCost <= money){
 			if(tier != maxTier){
+				armour.setItemAttribute("DEFENSE",new Integer(defense+1));
 				armour.setItemAttribute("TIER",new Integer(tier+1));
 				armour.setItemAttribute("UPGRADE_COST",new Integer(upgradeCost*2));
 				money -= upgradeCost;
@@ -215,16 +217,21 @@ public class Player{
 	/*
 	Upgrades the player's weapon to the next tier if available, subtracts the cost from the player's currency, and increases the upgrade cost.
 	Returns true if the upgrade was successful, false otherwise.
-	PreCondition: inventory is not null, inventory.get(0) is not null, inventory has all proper attributes
+	PreCondition: inventory is not null, inventory.get(2) is not null, inventory has all proper attributes
 	PostCondition: money = money - upgradeCost, weapon tier is 1 higher than it started
 	*/
 	public boolean upgradeWeapon(){
-		Item weapon = inventory.get(0);
+		Item weapon = inventory.get(2);
 		int upgradeCost = ((Integer)weapon.getItemAttribute("UPGRADE_COST")).intValue();
 		int tier = ((Integer)weapon.getItemAttribute("TIER")).intValue();
 		int maxTier = ((Integer)weapon.getItemAttribute("MAX_TIER")).intValue();
+		int minDamage = ((Integer)weapon.getItemAttribute("MIN_DAMAGE")).intValue();
+		int maxDamage = ((Integer)weapon.getItemAttribute("MAX_DAMAGE")).intValue();
+
 		if(upgradeCost <= money){
 			if(tier != maxTier){
+				weapon.setItemAttribute("MIN_DAMAGE",new Integer(minDamage*2));
+				weapon.setItemAttribute("MAX_DAMAGE",new Integer(maxDamage*2));
 				weapon.setItemAttribute("TIER",new Integer(tier+1));
 				weapon.setItemAttribute("UPGRADE_COST",new Integer(upgradeCost*2));
 				money -= upgradeCost;
