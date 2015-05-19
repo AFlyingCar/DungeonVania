@@ -16,34 +16,44 @@ public class DungeonVania{
 	private static Dungeon dungeon;
 	private static Shop shop;
 	private static Scanner input;
+	private static Logger logan = Logger.getInstance();
 	public static void main(String[] args){
-		input = new Scanner(System.in);
-		if(SaveGame.doesSaveFileExist()){
-			System.out.println("A save file exists, would you like to load it? (yes/no)");
-			if(yesNo())
-				player = SaveGame.load();
-			else{
-				System.out.println("Name: ");
-				String name = input.nextLine();
-				player = new Player(name);				
+		try{
+			input = new Scanner(System.in);
+			if(SaveGame.doesSaveFileExist()){
+				System.out.println("A save file exists, would you like to load it? (yes/no)");
+				if(yesNo())
+					player = SaveGame.load();
+				else{
+					System.out.println("Name: ");
+					String name = input.nextLine();
+					player = new Player(name);				
+				}
 			}
-		}
-		shop = new Shop(player);
-		
-		System.out.println(player.getName() + ": starts in the town");
-		System.out.println(player.getName() + ": checks their pockets and finds " + player.getMoney());
-		System.out.println("0. Go to Bed");
-		System.out.println("1. Go to the nearby dungeon");
-		System.out.println("2. Go to the store");
-		System.out.println("3. Check Inventory");
-		System.out.println("4. Save Game");
-		System.out.print("Choice: ");
-		int intPut = input.nextInt();
-		getMenu(intPut);
-		while(intPut != 0){
-			getMenuText();
-			intPut = input.nextInt();
+			shop = new Shop(player);
+			
+			System.out.println(player.getName() + ": starts in the town");
+			System.out.println(player.getName() + ": checks their pockets and finds " + player.getMoney());
+			System.out.println("0. Go to Bed");
+			System.out.println("1. Go to the nearby dungeon");
+			System.out.println("2. Go to the store");
+			System.out.println("3. Check Inventory");
+			System.out.println("4. Save Game");
+			System.out.print("Choice: ");
+			int intPut = input.nextInt();
 			getMenu(intPut);
+			while(intPut != 0){
+				getMenuText();
+				intPut = input.nextInt();
+				getMenu(intPut);
+			}
+		}catch(Exception e){
+			System.out.println("A catastrophic error has ocurred, and the program must quit.");
+			logan.log_error("A catastrophic error has ocurred, and the program must quit.");
+			// logan.log_error(e.getCause());
+			// logan.log_error(e.getLocalizedMessage());
+			// logan.log_error(e.getMessage());
+			throw e;
 		}
 	}
 
@@ -82,6 +92,12 @@ public class DungeonVania{
 			for(int i = 0; i < playerInv.size(); i++)
 				System.out.println((i + 1) + ": " + playerInv.get(i).toString());
 		}else if(choice == 4){
+			if(SaveGame.doesSaveFileExist()){
+				System.out.print("A save file already exists, are you sure you would like to overwrite it? (yes/no) ");
+				if(!yesNo())
+					return;
+			}
+			Logger.getInstance().log_std("Saving game...");
 			System.out.println("Saving game...");
 			SaveGame.save(player);
 		}else if(choice == 0)
