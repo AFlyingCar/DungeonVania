@@ -98,12 +98,16 @@ public class Dungeon{
 	public void Execute(Player p){
 		Room r = getCurrentRoom();
 		if(canMoveToNextRoom() && !r.isBossRoom()){
-			r.increaseTime()
+			r.increaseTime();
 			return;
 		}
 
 		for(int i = 0; i < r.getEnemies().size(); i++){
 			Enemy e = r.getEnemies().get(i);
+			if(e.isDead()){
+				r.removeEnemy(i);
+				continue;
+			}
 			int action = (int)(Math.random()*2);
 			switch(action){
 				case 0:
