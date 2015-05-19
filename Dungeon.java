@@ -49,7 +49,6 @@ public class Dungeon{
 	PostCondition: NAME = a random name that has not been used before.
 	*/
 	private void generateRandomName(){
-		// TODO: Add names to be chosen at random for the dungeon
 		NAME = "Dungeon";
 	}
 
@@ -115,6 +114,7 @@ public class Dungeon{
 				 System.out.println("Enemy " + (i+1) + " attacked " + p.getName() + " for " + d + " damage!");
 				 break;
 				case 1:
+				 if(r.isBossRoom()) break;
 				 e.defend();
 				 System.out.println("Enemy " + (i+1) + "defended itself!");
 				 break;
