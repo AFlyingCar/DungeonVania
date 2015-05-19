@@ -12,6 +12,8 @@ import java.util.Map;
 public class SaveGame{
 	private static final byte[] MAGIC = {(byte)0xde,(byte)0xad,(byte)0xbe,(byte)0xef};
 
+	private static final Logger logan = Logger.getInstance();
+
 	public static Player load(){
 		try{
 			File file = new File(".\\Saves\\player.txt");
@@ -21,7 +23,7 @@ public class SaveGame{
 			}
 			BufferedReader f = new BufferedReader(new FileReader(file));
 
-			Logger.log_std("Loading Player data...");
+			logan.log_std("Loading Player data...");
 			Player p;
 			String name = f.readLine();
 			p = new Player(name);
@@ -29,7 +31,7 @@ public class SaveGame{
 			p.setHealth(Integer.valueOf(f.readLine()).intValue());
 			f.close();
 
-			Logger.log_std("Loading inventory data...");
+			logan.log_std("Loading inventory data...");
 			Item i;
 			ArrayList<Item> inv = new ArrayList<Item>();
 			File[] allItems = new File(".\\SAVES\\Inventory").listFiles();
@@ -49,8 +51,8 @@ public class SaveGame{
 
 		}catch(Exception e){
 			System.out.println("Failed to load save file.");
-			Logger.log_error("Failed to load save file: ");
-			Logger.log_error(e.getMessage());
+			logan.log_error("Failed to load save file: ");
+			logan.log_error(e.getMessage());
 		}
 		return null;
 	}
@@ -60,11 +62,11 @@ public class SaveGame{
 			// Cannot save in a dungeon
 			ArrayList<Item> inv = p.getInventory();
 
-			Logger.log_std("Making save directory...");
+			logan.log_std("Making save directory...");
 			// Create save directory
 			new File(".\\SAVES\\Inventory").mkdirs();
 
-			Logger.log_std("Saving Player data...");
+			logan.log_std("Saving Player data...");
 			File f = new File(".\\Saves\\player.txt");
 			f.createNewFile();
 			PrintWriter player = new PrintWriter(f);
@@ -75,7 +77,7 @@ public class SaveGame{
 
 			PrintWriter item;
 
-			Logger.log_std("Saving inventory data...");
+			logan.log_std("Saving inventory data...");
 			for(int i = 0; i < inv.size(); i++){
 				item = new PrintWriter(".\\SAVES\\Inventory\\item"+i+".txt");
 				item.println(inv.get(i).getName());
@@ -89,8 +91,8 @@ public class SaveGame{
 		}
 		catch(Exception e){
 			System.out.println("Failed to save game.");
-			Logger.log_error("Failed to save game: ");
-			Logger.log_error(e.getMessage());
+			logan.log_error("Failed to save game: ");
+			logan.log_error(e.getMessage());
 		}
 	}
 

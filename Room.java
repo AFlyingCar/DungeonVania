@@ -5,12 +5,11 @@
  * Controls how rooms in a dungeon work.
  */
 
-// I did not hit her I did not... oh hai Mark!
-// Tommy Wiseau -(the Room)
-
 import java.util.ArrayList;
 
 public class Room{
+	private static Logger logan = Logger.getInstance();
+
 	private int hp_amount;
 	private int gold_amount;
 	private int room_size;
@@ -34,6 +33,10 @@ public class Room{
 		time = 0;
 	}
 
+	/*
+	Increases the time spent in a room by 1, and spawns enemies while resetting the timer if the time spent is longer than 5
+	PreCondition: time has been initialized
+	*/
 	public int increaseTime(){
 		time++;
 		if(time > 5){
@@ -70,7 +73,7 @@ public class Room{
 	private void generateRandomEnemies(){
 		for(int i = 0; i < getRoomSize()*2; i++){
 			enemies.add(new Enemy());
-			Logger.log_test("DEBUG - Added " + enemies.get(i));
+			logan.log_test("DEBUG - Added " + enemies.get(i));
 		}
 	}
 

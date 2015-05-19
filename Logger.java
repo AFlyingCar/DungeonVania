@@ -2,22 +2,32 @@
  * Tyler Robbins
  * 5/18/15
  * Logger
- * Contains static methods for logging functions
+ * Contains methods for logging functions
  */
 
 import java.io.*;
 
+// Ignore all of the other comments here, I figured out a way that "should" work
+
 // TODO: Make this class actually work
 public class Logger{
-	private static String baseName = "log_";
-	private static String filename = baseName;
-	private static File file;
-	private static PrintWriter out;
-	private static boolean canLog;
+	private static Logger _instance;
 
-	public static void log_error(String msg){
+	private String baseName = "log_";
+	private String filename = baseName;
+	private File file;
+	private PrintWriter out;
+	private boolean canLog;
+
+	// Singleton constructor
+	private Logger(){
+		// Yeah it does nothing, so what?
+		// fite me irl bro
+	}
+
+	public void log_error(String msg){
 		try{
-			if(canLog) return;
+			if(!canLog) return;
 			msg = "ERROR - " + msg;
 			out.println(msg);
 			out.flush();
@@ -27,9 +37,9 @@ public class Logger{
 		}
 	}
 
-	public static void log_std(String msg){
+	public void log_std(String msg){
 		try{
-			if(canLog) return;
+			if(!canLog) return;
 			msg = "STDOUT - " + msg;
 			out.println(msg);
 			out.flush();
@@ -39,9 +49,9 @@ public class Logger{
 		}
 	}
 
-	public static void log_warn(String msg){
+	public void log_warn(String msg){
 		try{
-			if(canLog) return;
+			if(!canLog) return;
 			msg = "WARN - " + msg;
 			out.println(msg);
 			out.flush();
@@ -51,9 +61,9 @@ public class Logger{
 		}
 	}
 
-	public static void log_test(String msg){
+	public void log_test(String msg){
 		try{
-			if(canLog) return;
+			if(!canLog) return;
 			msg = "TEST - " + msg;
 			out.println(msg);
 			out.flush();
@@ -63,7 +73,7 @@ public class Logger{
 		}
 	}
 
-	private static void createLogFile(){
+	private void createLogFile(){
 		try{
 			File[] files = new File(".").listFiles();
 			int logs = 0;
@@ -77,8 +87,14 @@ public class Logger{
 			out = new PrintWriter(file);
 			canLog = true;
 		}catch(Exception e){
-			// You're screwed
+			// Sorry, but if this fails to work, I can't help you...
 			canLog = false;
 		}
+	}
+
+	public static Logger getInstance(){
+		if(_instance == null)
+			_instance = new Logger();
+		return _instance;
 	}
 }
