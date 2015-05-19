@@ -18,6 +18,7 @@ public class Room{
 	private boolean bossRoom;
 
 	public Room(boolean bossRoom){
+		this.bossRoom = bossRoom;
 		if(bossRoom){
 			enemies = new ArrayList<Enemy>();
 			enemies.add(new Boss(this));
@@ -83,6 +84,8 @@ public class Room{
 	PostCondition: hp_amount and gold_amount are less than when they started
 	*/
 	public int[] loot(){
+		if(hp_amount == 0 && gold_amount == 0) return null;
+		
 		double hp_looted = Math.random();
 		double gold_looted = Math.random();
 		int[] r = {(int)(hp_amount*hp_looted),(int)(gold_looted*gold_amount)};
@@ -110,7 +113,10 @@ public class Room{
 	Returns true if and only if the 1 enemy is a boss.
 	PreCondition: enemies has been initialized
 	*/
-	public boolean isBossRoom(){ return enemies.get(0) instanceof Boss; }
+	public boolean isBossRoom(){
+		// return enemies.get(0) instanceof Boss;
+		return this.bossRoom;
+	}
 
 	/*
 	Returns true if an array of Object's is empty (all elements are null)
