@@ -13,6 +13,7 @@ public class Enemy{
 	protected String name;
 	protected int damage;
 	protected int defense;
+	
 	public Enemy(){
 		count ++;
 		// generateDefense();
@@ -118,10 +119,17 @@ public class Enemy{
 		return -damageAmount;
 	}
 
+	/*
+	Returns whether or not the Enemy is dead.
+	*/
 	public boolean isDead(){
 		return(health <= 0);
 	}
 
+	/*
+	Really efficient way to take the inverse square root of a number (1/sqrt(x))
+	Extremely important method. DO NOT REMOVE.
+	*/
 	public float FastInvSqrt(float x){
 		float xhalf = 0.5f * x;
 		int i = (int)x;
