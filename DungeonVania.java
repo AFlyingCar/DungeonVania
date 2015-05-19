@@ -16,9 +16,9 @@ public class DungeonVania{
 	private static Scanner input;
 	public static void main(String[] args){
 		input = new Scanner(System.in);
-		if(doesSaveFileExist()){
+		if(SaveGame.doesSaveFileExist()){
 			System.out.println("A save file exists, would you like to load it? (yes/no)");
-			if(yesno())
+			if(yesNo())
 				player = SaveGame.load();
 			else{
 				System.out.println("Name: ");
@@ -34,6 +34,7 @@ public class DungeonVania{
 		System.out.println("1. Go to the nearby dungeon");
 		System.out.println("2. Go to the store");
 		System.out.println("3. Check Inventory");
+		System.out.println("4. Save Game");
 		System.out.print("Choice: ");
 		int intPut = input.nextInt();
 		getMenu(intPut);
@@ -71,9 +72,10 @@ public class DungeonVania{
 	public static void getMenu(int choice){
 		if(choice == 1){
 			goToDungeon();
-		}else if(choice == 2)
+		}else if(choice == 2){
 			System.out.println(player.getName() + ": walks to the nearby store.");
-		else if(choice == 3){
+			goToStore();
+		}else if(choice == 3){
 			ArrayList<Item> playerInv = player.getInventory();
 			for(int i = 0; i < playerInv.size(); i++)
 				System.out.println((i + 1) + ": " + playerInv.get(i).toString());
@@ -95,11 +97,11 @@ public class DungeonVania{
 		int choice = -1;
 		while(choice != 0 || dungeon.canMoveToNextRoom()){
 			enemies = dungeon.getCurrentRoom().getEnemies();
-			System.out.println(player.getName() + ": encounters " + enmies.length + " enemie(s)");
-			for(int i = 0; i < enemies.length; i++){
-				System.out.println(enemies.get(i) + " " + (i + 1) + "\'s Health: " + enemies.get(i).getHealth());
-				System.out.println(enemies.get(i) + " " + (i + 1) + "\'s Defence: " + enemies.get(i).getDefence());
-				System.out.println(enemies.get(i) + " " + (i + 1) + "\'s Damage: " + enemies.get(i).damage());
+			System.out.println(player.getName() + ": encounters " + enemies.size() + " enemie(s)");
+			for(int i = 0; i < enemies.size(); i++){
+				System.out.print(enemies.get(i).getName() + " " + (i + 1) + "\'s Health: " + enemies.get(i).getHealth() + "\t");
+				System.out.print("Defense: " + enemies.get(i).getDefense() + "\t");
+				System.out.println("Damage: " + enemies.get(i).getDamage());
 			}
 			System.out.println("1. Attack");
 			System.out.println("2. Check Inventory");
@@ -107,18 +109,20 @@ public class DungeonVania{
 			System.out.print("Choice: ");
 			int intPut = input.nextInt();
 			if(intPut == 1){
-				if(enemies.length > 1){
+				if(enemies.size() > 1){
 					System.out.println("Which enemy would you like to attack");
-					for(int i = 0; i < enemies.length; i++){
-						System.out.print("Enemy " + (i+1) + "	");
+					for(int i = 0; i < enemies.size(); i++){
+						System.out.print("Enemy " + (i+1) + "\t");
 					}
 					System.out.print("Choice: ");
-					intPut = input.nextInt();
-					int damageTaken = player.damageEnemy(enemies.get(intPut - 1));
-					System.out.println(enemies.get(intPut).getName() + " " + (intPut + 1) ": took " + damageTaken + " damage");
+					intPut = input.nextInt()-1;
+					int damageTaken = player.damageEnemy(enemies.get(intPut));
+					System.out.println(enemies.get(intPut).getName() + " " + (intPut + 1) +  ": took " + damageTaken + " damage");
+					if(enemies.get(intPut).isDead())
+						System.out.println(enemies.get(intPut).getName() + " " + (intPut + 1) + " died!");
 				}else{
-					int damageTaken = player.damageEnemy(enemies.get(0))
-					System.out.println(enemies.get(0).getName() + " " + 1 " + : took " + damageTaken + " damage");
+					int damageTaken = player.damageEnemy(enemies.get(0));
+					System.out.println(enemies.get(0).getName() + " " + 1 + ": took " + damageTaken + " damage");
 				}
 			}else if(intPut == 2){
 				System.out.println(player.toString());
@@ -130,7 +134,7 @@ public class DungeonVania{
 				for(int i = 0; i < intPut; i++)
 					player.usePotion();
 			}
-			dungeon.execute(player);
+			dungeon.Execute(player);
 		}
 	}
 
