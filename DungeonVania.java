@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 
 public class DungeonVania{
+	public static final long MAGIC = 0x57ddec8c33;
+
 	private static Player player;
 	private static Dungeon dungeon;
 	private static Shop shop;
