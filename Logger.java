@@ -9,6 +9,9 @@ import java.io.*;
 
 // Ignore all of the other comments here, I figured out a way that "should" work
 
+// So, it turns out that the reason Logger never worked was because i forgot to call createLogFile
+// I'm so sorry...
+
 // TODO: Make this class actually work
 public class Logger{
 	private static Logger _instance;
@@ -21,8 +24,8 @@ public class Logger{
 
 	// Singleton constructor
 	private Logger(){
-		// Yeah it does nothing, so what?
-		// fite me irl bro
+		canLog = false; // Disabled Logger because it doesn't like me.
+		// createLogFile();
 	}
 
 	public void log_error(String msg){
@@ -33,6 +36,19 @@ public class Logger{
 			out.flush();
 		}catch(Exception e){
 			// If this fails, then holy crap is something wrong
+			canLog = false;
+		}
+	}
+
+	public void log_error(Throwable t){
+		try{
+			if(!canLog) return;
+			t.printStackTrace(out);
+		}catch(Exception e){
+			// To make sure these comments look right, I'll just leave this here
+			System.out.println("An error ocurred!");
+			// System.out.println(e);
+			// e.printStackTrace();
 			canLog = false;
 		}
 	}
@@ -78,7 +94,7 @@ public class Logger{
 			File[] files = new File(".").listFiles();
 			int logs = 0;
 			for(File f : files)
-				if(f.getName().equals(baseName))
+				if(f.getName().startsWith(baseName))
 					logs++;
 			filename += logs + ".txt";
 			file = new File(filename);
