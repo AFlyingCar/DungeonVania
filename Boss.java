@@ -32,7 +32,9 @@ public class Boss extends Enemy{
 		defense = (int)(Math.random()*15)+10;
 	}
 
-	public void Execute(){
-
+	public boolean Execute(){
+		// Everything important happens in this method.
+		// If this method is removed, then nothing will work anymore
+		return false;
 	}
 }
