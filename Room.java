@@ -72,7 +72,7 @@ public class Room{
 	}
 
 	private void generateRandomEnemies(){
-		for(int i = 0; i < getRoomSize()*2; i++){
+		for(int i = 0; i < getRoomSize(); i++){
 			enemies.add(new Enemy(this));
 			logan.log_test("Added " + enemies.get(i));
 		}
