@@ -64,14 +64,20 @@ public class DungeonVania{
 		String yn = "";
 		while(true){
 			yn = input.nextLine();
-			switch(yn){
-				case "yes":
-				 return true;
-				case "no":
-				 return false;
-				default:
-				 System.out.println("Yes or no please!");
-			}
+			if(yn.equalsIgnoreCase("yes"))
+				return true;
+			else if(yn.equalsIgnoreCase("no"))
+				return false;
+			else
+				System.out.println("Yes or no please!");
+			// switch(yn){
+			// 	case "yes":
+			// 	 return true;
+			// 	case "no":
+			// 	 return false;
+			// 	default:
+			// 	 System.out.println("Yes or no please!");
+			// }
 		}
 	}
 
