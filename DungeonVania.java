@@ -18,7 +18,7 @@ public class DungeonVania{
 	private static Scanner input;
 	private static Logger logan = Logger.getInstance();
 	public static void main(String[] args){
-		try{
+		// try{
 			input = new Scanner(System.in);
 			if(SaveGame.doesSaveFileExist()){
 				System.out.println("A save file exists, would you like to load it? (yes/no)");
@@ -29,6 +29,11 @@ public class DungeonVania{
 					String name = input.nextLine();
 					player = new Player(name);				
 				}
+			}
+			else{
+				System.out.println("Name: ");
+				String name = input.nextLine();
+				player = new Player(name);				
 			}
 			shop = new Shop(player);
 			
@@ -47,14 +52,14 @@ public class DungeonVania{
 				intPut = input.nextInt();
 				getMenu(intPut);
 			}
-		}catch(Exception e){
-			System.out.println("A catastrophic error has ocurred, and the program must quit.");
-			logan.log_error("A catastrophic error has ocurred, and the program must quit.");
+		// }catch(Exception e){
+			// System.out.println("A catastrophic error has ocurred, and the program must quit.");
+			// logan.log_error("A catastrophic error has ocurred, and the program must quit.");
 			// logan.log_error(e.getCause());
 			// logan.log_error(e.getLocalizedMessage());
 			// logan.log_error(e.getMessage());
-			throw e;
-		}
+			// throw e;
+		// }
 	}
 
 	/*
