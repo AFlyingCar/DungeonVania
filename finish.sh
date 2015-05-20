@@ -1,5 +1,5 @@
 
-./build.bat
+./build.sh
 
 cd bin
 
