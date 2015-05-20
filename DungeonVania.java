@@ -69,9 +69,9 @@ public class DungeonVania{
 		String yn = "";
 		while(true){
 			yn = input.nextLine();
-			if(yn.equalsIgnoreCase("yes"))
+			if(yn.equalsIgnoreCase("yes") || yn.equalsIgnoreCase("y") || yn.equalsIgnoreCase("ye"))
 				return true;
-			else if(yn.equalsIgnoreCase("no"))
+			else if(yn.equalsIgnoreCase("no") || yn.equalsIgnoreCase("n"))
 				return false;
 			else
 				System.out.println("Yes or no please!");
