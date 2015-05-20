@@ -165,6 +165,9 @@ public class DungeonVania{
 				System.out.println("Damage: " + enemies.get(i).getDamage());
 			}
 
+			System.out.println(player.getName() + "\'s health: " + player.getHealth());
+			System.out.println(player.getName() + "\'s damage: " + player.getInventory().get(2).getItemAttribute("MIN_DAMAGE") + " to " + player.getInventory().get(2).getItemAttribute("MAX_DAMAGE"));
+
 			if(dungeon.canMoveToNextRoom()){
 				System.out.println("1. Search room");
 				System.out.println("2. Check Inventory");
