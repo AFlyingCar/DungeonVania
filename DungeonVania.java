@@ -21,17 +21,17 @@ public class DungeonVania{
 		// try{
 			input = new Scanner(System.in);
 			if(SaveGame.doesSaveFileExist()){
-				System.out.println("A save file exists, would you like to load it? (yes/no)");
+				System.out.print("A save file exists, would you like to load it? (yes/no): ");
 				if(yesNo())
 					player = SaveGame.load();
 				else{
-					System.out.println("Name: ");
+					System.out.print("Name: ");
 					String name = input.nextLine();
 					player = new Player(name);				
 				}
 			}
 			else{
-				System.out.println("Name: ");
+				System.out.print("Name: ");
 				String name = input.nextLine();
 				player = new Player(name);				
 			}
