@@ -98,6 +98,27 @@ public class DungeonVania{
 		System.out.print("Choice: ");
 	}
 
+	public static void printPlayerInventoryWithFormatting(){
+		ArrayList<Item> inv = player.getInventory();
+		Item wep = inv.get(2);
+		Item arm = inv.get(1);
+		Item pot = inv.get(0);
+
+		int health = player.getHealth();
+		int money = player.getMoney();
+		String name = player.getName();
+
+		System.out.println("Name: " + name);
+		System.out.println("Health: " + health);
+		System.out.println("Money: " + money + "g");
+
+		System.out.println("Weapon Tier: " + wep.getItemAttribute("TIER"));
+		System.out.println("Weapon damage: " + wep.getItemAttribute("MIN_DAMAGE") + " to " + wep.getItemAttribute("MAX_DAMAGE"));
+		System.out.println("Armour Tier: " + arm.getItemAttribute("TIER"));
+		System.out.println("Armour defense: " + arm.getItemAttribute("DEFENSE"));
+		System.out.println("Amount of Potions: " + pot.getItemAttribute("AMOUNT"));
+	}
+
 	public static void getMenu(int choice){
 		if(choice == 1){
 			goToDungeon();
@@ -109,7 +130,8 @@ public class DungeonVania{
 			// ArrayList<Item> playerInv = player.getInventory();
 			// for(int i = 0; i < playerInv.size(); i++)
 			// 	System.out.println((i + 1) + ": " + playerInv.get(i).toString());
-			System.out.println(player.toString());
+			// System.out.println(player.toString());
+			printPlayerInventoryWithFormatting();
 		}else if(choice == 4){
 			if(SaveGame.doesSaveFileExist()){
 				System.out.print("A save file already exists, are you sure you would like to overwrite it? (yes/no) ");
@@ -180,10 +202,12 @@ public class DungeonVania{
 					}
 				}
 			}else if(intPut == 2){
-				System.out.println(player.toString());
+				// System.out.println(player.toString());
+				printPlayerInventoryWithFormatting();
 				continue;
 			}else if(intPut == 3){
-				System.out.println(player.toString());
+				// System.out.println(player.toString());
+				printPlayerInventoryWithFormatting();
 				System.out.print("How many potions would you like to use: ");
 				intPut = input.nextInt();
 				for(int i = 0; i < intPut; i++)
