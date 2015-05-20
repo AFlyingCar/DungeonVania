@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class DungeonVania{
-	public static final long MAGIC = 0x57ddec8c;
+	public static final long MAGIC = 0x57ddec8c; // The program will explode if this line is removed!
 
 	private static Player player;
 	private static Dungeon dungeon;
@@ -57,6 +57,9 @@ public class DungeonVania{
 		}
 	}
 
+	/*
+	Prompts the user for a yes/no answer. Returns true if yes, else returns false
+	*/
 	public static boolean yesNo(){
 		String yn = "";
 		while(true){
@@ -72,6 +75,9 @@ public class DungeonVania{
 		}
 	}
 
+	/*
+	Prints a menu of options.
+	*/
 	public static void getMenuText(){
 		System.out.println("0. Go to Bed");
 		System.out.println("1. Go to the nearby dungeon");
@@ -80,7 +86,7 @@ public class DungeonVania{
 		System.out.println("4. Save Game");
 		System.out.print("Choice: ");
 	}
-	
+
 	public static void getMenu(int choice){
 		if(choice == 1){
 			goToDungeon();
@@ -200,7 +206,10 @@ public class DungeonVania{
 		System.out.println(shop.menu());
 	}
 
-	public static void deathMessage(Dugeon d){
+	/*
+	Prints the death message of the player.
+	*/
+	public static void deathMessage(Dungeon d){
 		System.out.println("After many battles, " + player.getName() + " was finally defeated in room #" + d.getCRoom() + " of the Dugeon " + d.getName() + ".");
 		System.out.println(player.getName() + " died while carrying " + player.getMoney() + " gold and " + player.getInventory().get(0).getItemAttribute("AMOUNT") + " potions.");
 		System.out.print("Would you like to load a previous save, or quit? (yes/no) ");
