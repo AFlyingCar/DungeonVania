@@ -13,6 +13,7 @@ class Shop{
 
 	public Shop(Player newPlayer){
 		player = newPlayer;
+		input = new Scanner(System.in);
 	}
 
 	public String menu(){
