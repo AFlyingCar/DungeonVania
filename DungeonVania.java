@@ -33,7 +33,7 @@ public class DungeonVania{
 			shop = new Shop(player);
 			
 			System.out.println(player.getName() + ": starts in the town");
-			System.out.println(player.getName() + ": checks their pockets and finds " + player.getMoney());
+			System.out.println(player.getName() + ": checks their pockets and finds " + player.getMoney() + " gold");
 			System.out.println("0. Go to Bed");
 			System.out.println("1. Go to the nearby dungeon");
 			System.out.println("2. Go to the store");
