@@ -222,7 +222,7 @@ public class DungeonVania{
 					System.out.println("Cannot move to the next room, because there are enemies in the way!");
 				continue;
 			}else if(intPut == 0){
-				int damageAmount = (int)(Math.random()*(enemies.size()))+1;
+				int damageAmount = (int)(Math.random()*(enemies.size()));
 				System.out.println(player.getName() + " tried to escape, and took " + damageAmount + " damage in the process.");
 				player.addHealth(-damageAmount);
 				return;
