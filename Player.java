@@ -178,14 +178,14 @@ public class Player{
 		Item potionPouch = inventory.get(0);
 		int potionCost = ((Integer)potionPouch.getItemAttribute("UPGRADE_COST")).intValue();
 		int potionAmt = ((Integer)potionPouch.getItemAttribute("AMOUNT")).intValue();
-		int maxPotionAmount = ((Integer)potionPouch.getItemAttribute("MAX_AMOUNT")).intValue();
+		//int maxPotionAmount = ((Integer)potionPouch.getItemAttribute("MAX_AMOUNT")).intValue();
 
 		if(money >= potionCost){
-			if(potionAmt < maxPotionAmount){
+			//if(potionAmt < maxPotionAmount){
 				potionPouch.setItemAttribute("AMOUNT",new Integer(potionAmt+1));
 				money -= potionCost;
 				return true;
-			}
+			//}
 		}
 		return false;
 	}
